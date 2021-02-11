@@ -1,0 +1,21 @@
+From 564c3319618bad4a375865b8adeaf286e933e32e Mon Sep 17 00:00:00 2001
+From: kkapranov <45823870+kkapranov@users.noreply.github.com>
+Date: Thu, 7 Jan 2021 17:50:25 +0200
+Subject: [PATCH 1/2] Initial commit
+
+---
+ README.md | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 README.md
+
+diff --git a/README.md b/README.md
+new file mode 100644
+index 0000000..ddb5683
+--- /dev/null
++++ b/README.md
+@@ -0,0 +1 @@
++# imx8mm-a10
+\ No newline at end of file
+-- 
+2.11.0
+

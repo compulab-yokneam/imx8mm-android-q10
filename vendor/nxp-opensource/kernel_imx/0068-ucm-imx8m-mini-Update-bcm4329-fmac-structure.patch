@@ -1,0 +1,58 @@
+From 2c36daffd8486d9b1fb6eaeaf4fd23ade33770e1 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Wed, 17 Mar 2021 11:49:55 +0200
+Subject: [PATCH 68/72] ucm-imx8m-mini: Update bcm4329-fmac structure
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ .../boot/dts/compulab/ucm-imx8m-mini.dtsi     | 23 ++++++-------------
+ 1 file changed, 7 insertions(+), 16 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/compulab/ucm-imx8m-mini.dtsi b/arch/arm64/boot/dts/compulab/ucm-imx8m-mini.dtsi
+index 57f5f8a1547b..338a101ffd76 100644
+--- a/arch/arm64/boot/dts/compulab/ucm-imx8m-mini.dtsi
++++ b/arch/arm64/boot/dts/compulab/ucm-imx8m-mini.dtsi
+@@ -141,19 +141,6 @@
+ 		};
+ 	};
+ 
+-	//Fake regulator provides WL_REG_ON signal for wireless interface
+-	wlreg_on: wlregon-regulator {
+-		compatible = "regulator-fixed";
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+-		regulator-name = "wlreg_on";
+-		gpio = <&gpio2 10 GPIO_ACTIVE_HIGH>;
+-		startup-delay-us = <100>;
+-		enable-active-high;
+-		regulator-always-on;
+-		status = "okay";
+-	};
+-
+ 	reg_usdhc2_vmmc: regulator-usdhc2 {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "VSD_3V3";
+@@ -745,13 +732,17 @@
+ 	bus-width = <4>;
+ 	no-1-8-v;
+ 	non-removable;
+-	wifi-host;
+ 	pm-ignore-notify;
+-	vmmc-supply = <&wlreg_on>;
++	cap-power-off-card;
+ 	status = "okay";
++	mmc-pwrseq = <&usdhc1_pwrseq>;
++
+ 	brcmf: wifi@1 {
+-		compatible = "brcm,bcm4329-fmac";
+ 		reg = <1>;
++		compatible = "brcm,bcm4329-fmac";
++		interrupt-parent = <&gpio2>;
++		interrupts = <9 IRQ_TYPE_LEVEL_HIGH>;
++		interrupt-names = "host-wake";
+ 	};
+ };
+ 
+-- 
+2.17.1
+

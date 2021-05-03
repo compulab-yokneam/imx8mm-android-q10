@@ -1,0 +1,26 @@
+From 80a8a87bbb435785f6a25a8147b42740eab2bc45 Mon Sep 17 00:00:00 2001
+From: Kirill Kapranov <kirill.kapranov@compulab.co.il>
+Date: Wed, 17 Mar 2021 15:13:53 +0200
+Subject: [PATCH 71/72] ucm-imx8m-mini: dtsi: Disable dma for uart3
+
+Signed-off-by: Kirill Kapranov <kirill.kapranov@compulab.co.il>
+---
+ arch/arm64/boot/dts/compulab/ucm-imx8m-mini.dtsi | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/compulab/ucm-imx8m-mini.dtsi b/arch/arm64/boot/dts/compulab/ucm-imx8m-mini.dtsi
+index 338a101ffd76..e2bf73d67f57 100644
+--- a/arch/arm64/boot/dts/compulab/ucm-imx8m-mini.dtsi
++++ b/arch/arm64/boot/dts/compulab/ucm-imx8m-mini.dtsi
+@@ -700,6 +700,8 @@
+ &uart3 { /* console */
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_uart3>;
++	/delete-property/ dmas;
++	/delete-property/ dma-names;
+ 	status = "okay";
+ };
+ 
+-- 
+2.17.1
+

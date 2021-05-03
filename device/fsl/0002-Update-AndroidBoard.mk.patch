@@ -1,0 +1,23 @@
+From 158968ab4617749ec319957ee3e48970ba14181d Mon Sep 17 00:00:00 2001
+From: Kirill Kapranov <kirill.kapranov@compulab.co.il>
+Date: Tue, 16 Mar 2021 15:55:54 +0200
+Subject: [PATCH 2/4] Update AndroidBoard.mk
+
+Signed-off-by: Kirill Kapranov <kirill.kapranov@compulab.co.il>
+---
+ imx8m/ucm_imx8m_mini/AndroidBoard.mk | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/imx8m/ucm_imx8m_mini/AndroidBoard.mk b/imx8m/ucm_imx8m_mini/AndroidBoard.mk
+index 9dfb1ad5..c4250849 100644
+--- a/imx8m/ucm_imx8m_mini/AndroidBoard.mk
++++ b/imx8m/ucm_imx8m_mini/AndroidBoard.mk
+@@ -5,3 +5,5 @@ include device/fsl/common/build/dtbo.mk
+ 
+ include device/fsl/common/build/imx-recovery.mk
+ include device/fsl/common/build/gpt.mk
++include $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media-profile.mk
++include $(FSL_PROPRIETARY_PATH)/fsl-proprietary/sensor/fsl-sensor.mk
+-- 
+2.17.1
+

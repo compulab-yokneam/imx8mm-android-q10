@@ -1,0 +1,45 @@
+From 5158db4b95887df8428b5320c8bec1a418095a6a Mon Sep 17 00:00:00 2001
+From: Kirill Kapranov <kirill.kapranov@compulab.co.il>
+Date: Tue, 4 May 2021 23:16:52 +0300
+Subject: [PATCH 5/5] ucm-imx8m-mini: Enable backlight
+
+Signed-off-by: Kirill Kapranov <kirill.kapranov@compulab.co.il>
+---
+ imx8m/sepolicy/hal_graphics_composer_default.te | 2 +-
+ imx8m/ucm_imx8m_mini/init.rc                    | 6 +++---
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/imx8m/sepolicy/hal_graphics_composer_default.te b/imx8m/sepolicy/hal_graphics_composer_default.te
+index b6995bfc..ed9545f4 100644
+--- a/imx8m/sepolicy/hal_graphics_composer_default.te
++++ b/imx8m/sepolicy/hal_graphics_composer_default.te
+@@ -3,7 +3,7 @@ allow hal_graphics_composer_default hal_graphics_mapper_hwservice:hwservice_mana
+ allow hal_graphics_composer_default self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
+ allow hal_graphics_composer_default gpu_device:dir { search read open watch };
+ allow hal_graphics_composer_default sysfs:dir { read open };
+-allow hal_graphics_composer_default sysfs:file { read open getattr };
++allow hal_graphics_composer_default sysfs:file { read write open getattr };
+ allow hal_graphics_composer_default ion_device:chr_file { write };
+ allow hal_graphics_composer_default sysfs_leds:dir { search };
+ allow hal_graphics_composer_default sysfs_leds:file { getattr open read write };
+diff --git a/imx8m/ucm_imx8m_mini/init.rc b/imx8m/ucm_imx8m_mini/init.rc
+index 30d4be96..a52adc4c 100644
+--- a/imx8m/ucm_imx8m_mini/init.rc
++++ b/imx8m/ucm_imx8m_mini/init.rc
+@@ -133,10 +133,10 @@ on early-boot
+     chmod 0664 /sys/kernel/debug/sync/sw_sync
+ 
+     # Default backlight device
+-    setprop hw.backlight.dev "32e10000.mipi_dsi.0"
++    setprop hw.backlight.dev "backlight"
+     # Chmod/chown FSL specific sys entry
+-    chown system system /sys/class/backlight/32e10000.mipi_dsi.0/brightness
+-    chmod 0660 /sys/class/backlight/32e10000.mipi_dsi.0/brightness
++    chown system system /sys/class/backlight/backlight/brightness
++    chmod 0660 /sys/class/backlight/backlight/brightness
+ 
+     # Set light sensor sysfs path and light sensor threshold lux value
+     setprop ro.hardware.lightsensor "/sys/class/i2c-dev/i2c-0/device/0-0044/"
+-- 
+2.17.1
+

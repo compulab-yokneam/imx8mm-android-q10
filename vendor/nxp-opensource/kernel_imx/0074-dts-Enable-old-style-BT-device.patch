@@ -1,0 +1,100 @@
+From 6165ac372bf2dddd05d4b2b82255dbd5c8595d26 Mon Sep 17 00:00:00 2001
+From: Kirill Kapranov <kirill.kapranov@compulab.co.il>
+Date: Wed, 19 May 2021 23:48:09 +0300
+Subject: [PATCH 74/74] dts: Enable old-style BT device
+
+Signed-off-by: Kirill Kapranov <kirill.kapranov@compulab.co.il>
+---
+ .../boot/dts/compulab/ucm-imx8m-mini.dtsi     | 52 +++++++++++++------
+ 1 file changed, 37 insertions(+), 15 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/compulab/ucm-imx8m-mini.dtsi b/arch/arm64/boot/dts/compulab/ucm-imx8m-mini.dtsi
+index e2bf73d67f57..c306bf0d6710 100644
+--- a/arch/arm64/boot/dts/compulab/ucm-imx8m-mini.dtsi
++++ b/arch/arm64/boot/dts/compulab/ucm-imx8m-mini.dtsi
+@@ -173,6 +173,29 @@
+ 		startup-delay-us = <500>;
+ 	};
+ 
++	regulator_bt_dev_wake: bt_dev_wake {
++		compatible = "regulator-fixed";
++		regulator-name = "bt_dev_wake";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		gpio = <&gpio2 7 GPIO_ACTIVE_HIGH>;
++		regulator-always-on;
++		enable-active-high;
++		startup-delay-us = <500>;
++	};
++
++	regulator_bt_host_wake: bt_host_wake {
++		compatible = "regulator-fixed";
++		regulator-name = "bt_host_wake";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		gpio = <&gpio2 8 GPIO_ACTIVE_HIGH>;
++		regulator-always-on;
++		regulator-boot-on;
++		enable-active-high;
++		vin-supply = <&regulator_bt_dev_wake>;
++	};
++
+ 	usdhc1_pwrseq: usdhc1_pwrseq {
+ 		compatible = "mmc-pwrseq-simple";
+ 		reset-gpios = <&gpio2 10 GPIO_ACTIVE_LOW>;
+@@ -201,6 +224,16 @@
+ 		default-brightness-level = <222>;
+ 		status = "okay";
+ 	};
++
++	bt_rfkill {
++		compatible = "net,rfkill-gpio";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_bt>;
++		reset-gpios = <&gpio2 6 GPIO_ACTIVE_HIGH>;
++		name = "bt_rfkill";
++		type = "bluetooth";
++		status = "okay";
++	};
+ };
+ 
+ &iomuxc {
+@@ -478,12 +511,11 @@
+ 				MX8MM_IOMUXC_GPIO1_IO13_PWM2_OUT	0x03
+ 			>;
+ 		};
+-
+ 		pinctrl_bt: bt0grp {
+ 			fsl,pins = <
+-				MX8MM_IOMUXC_SD1_DATA4_GPIO2_IO6	0x19 /* BT_REG_ON */
+-				MX8MM_IOMUXC_SD1_DATA5_GPIO2_IO7	0x19 /* BT_DEV_WU */
+-				MX8MM_IOMUXC_SD1_DATA6_GPIO2_IO8	0x19 /* BT_HST_WU */
++				MX8MM_IOMUXC_SD1_DATA4_GPIO2_IO6        0x19 /* BT_REG_ON */
++				MX8MM_IOMUXC_SD1_DATA5_GPIO2_IO7        0x19 /* BT_DEV_WU */
++				MX8MM_IOMUXC_SD1_DATA6_GPIO2_IO8        0x19 /* BT_HST_WU */
+ 			>;
+ 		};
+ 	};
+@@ -710,18 +742,8 @@
+ 	pinctrl-0 = <&pinctrl_uart4>;
+ 	assigned-clocks = <&clk IMX8MM_CLK_UART4>;
+ 	assigned-clock-parents = <&clk IMX8MM_SYS_PLL1_80M>;
+-	uart-has-rtscts;
++	fsl,uart-has-rtscts;
+ 	status = "okay";
+-
+-	bluetooth {
+-		compatible = "brcm,bcm4330-bt";
+-		pinctrl-names = "default";
+-		pinctrl-0 = <&pinctrl_bt>;
+-		max-speed = <3000000>;
+-		device-wakeup-gpios = <&gpio2 7 GPIO_ACTIVE_HIGH>;
+-		host-wakeup-gpios = <&gpio2 8 GPIO_ACTIVE_HIGH>;
+-		shutdown-gpios = <&gpio2 6 GPIO_ACTIVE_HIGH>;
+-	};
+ };
+ 
+ &usdhc1 {
+-- 
+2.17.1
+

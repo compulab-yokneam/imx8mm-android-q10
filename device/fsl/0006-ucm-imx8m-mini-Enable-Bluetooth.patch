@@ -1,0 +1,49 @@
+From c75881c2c2e76081f95de9a0293337cc44adc3b9 Mon Sep 17 00:00:00 2001
+From: Kirill Kapranov <kirill.kapranov@compulab.co.il>
+Date: Wed, 19 May 2021 23:54:42 +0300
+Subject: [PATCH 6/6] ucm-imx8m-mini: Enable Bluetooth
+
+Signed-off-by: Kirill Kapranov <kirill.kapranov@compulab.co.il>
+---
+ imx8m/ucm_imx8m_mini/BoardConfig.mk    | 1 +
+ imx8m/ucm_imx8m_mini/ucm_imx8m_mini.mk | 5 +++--
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/imx8m/ucm_imx8m_mini/BoardConfig.mk b/imx8m/ucm_imx8m_mini/BoardConfig.mk
+index bab469b5..c79138e1 100644
+--- a/imx8m/ucm_imx8m_mini/BoardConfig.mk
++++ b/imx8m/ucm_imx8m_mini/BoardConfig.mk
+@@ -83,6 +83,7 @@ TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
+ 
+ #BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(IMX_DEVICE_PATH)/bluetooth
+ #BOARD_CUSTOM_BT_CONFIG := $(BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR)/vnd_config.txt
++BOARD_HAVE_BLUETOOTH := true
+ BOARD_HAVE_BLUETOOTH_BLUEZ := false
+ BOARD_HAVE_BLUETOOTH_BCM := true
+ 
+diff --git a/imx8m/ucm_imx8m_mini/ucm_imx8m_mini.mk b/imx8m/ucm_imx8m_mini/ucm_imx8m_mini.mk
+index 330438f3..d12dacfc 100644
+--- a/imx8m/ucm_imx8m_mini/ucm_imx8m_mini.mk
++++ b/imx8m/ucm_imx8m_mini/ucm_imx8m_mini.mk
+@@ -90,8 +90,8 @@ PRODUCT_COPY_FILES += \
+  PRODUCT_COPY_FILES += \
+     $(IMX_DEVICE_PATH)/firmware/brcm/BCM4335C0.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/BCM4335C0.hcd
+ 
+- PRODUCT_COPY_FILES += \
+-    $(IMX_DEVICE_PATH)/bluetooth/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf
++ PRODUCT_PACKAGES += bt_vendor.conf
++# PRODUCT_COPY_FILES += $(IMX_DEVICE_PATH)/bluetooth/bt_vendor.conf:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth/bt_vendor.conf
+ 
+ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
+ PRODUCT_COPY_FILES += \
+@@ -128,6 +128,7 @@ PRODUCT_COPY_FILES += \
+ PRODUCT_COPY_FILES += \
+     frameworks/native/data/etc/android.hardware.audio.output.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.audio.output.xml \
+     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth_le.xml \
++    frameworks/native/data/etc/android.hardware.bluetooth.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth.xml \
+     frameworks/native/data/etc/android.hardware.camera.front.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.front.xml \
+     frameworks/native/data/etc/android.hardware.camera.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.xml \
+     frameworks/native/data/etc/android.hardware.ethernet.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.ethernet.xml \
+-- 
+2.17.1
+

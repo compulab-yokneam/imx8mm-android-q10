@@ -1,5 +1,4 @@
 # Android Q10 for imx8mm
-[TOC]
 
 <i>Not released yet</i>
 
@@ -36,7 +35,7 @@ export AARCH32_GCC_CROSS_COMPILE=/Where_the_tool_chain_is_installed/gcc-arm-8.3-
   export A=$(pwd)</pre>
 * Follow the instructions in the <b><i>~/imx-android-10.0.0_2.5.0.tar.gz/README</i></b> and make sure that the build environment is ready.
 
-For more details found [the NXP Android User Guide](https://www.nxp.com/docs/en/user-guide/ANDROID_USERS_GUIDE.pdf)
+For more details see [the NXP Android User Guide](https://www.nxp.com/docs/en/user-guide/ANDROID_USERS_GUIDE.pdf)
 
 ## CompuLab sources
 
@@ -109,7 +108,7 @@ export MACHINE=ucm_imx8m_mini SOC=imx8mm
   ```bash
   export MACHINE=ucm_imx8m_mini SOC=imx8mm
   cd out/target/product/${MACHINE}
-  sudo ./fsl-sdcard-partition.sh -c 14 -f ${SOC} /dev/sdX
+  sudo ./fsl-sdcard-partition.sh -f ${SOC} /dev/sdX
   ```
 
 ## What's next?

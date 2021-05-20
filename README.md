@@ -113,3 +113,6 @@ export MACHINE=ucm_imx8m_mini SOC=imx8mm
 
 ## What's next?
 Boot Android using the uSD card as described here [Boot from the SD-card](https://mediawiki.compulab.com/w/index.php?title=UCM-iMX8M-Mini:_Android:_Running_from_SD_card)
+
+## Known issues:
+* Wi-Fi interface is disabled in GUI

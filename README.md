@@ -41,10 +41,10 @@ For more details see [the NXP Android User Guide](https://www.nxp.com/docs/en/us
 
 * Clone the repository
 
-```bash
-    git clone <https://github.com/compulab-yokneam/imx8mm-a10.git>
-    export C=$(pwd)/imx8mm-a10</pre>
-```
+  ```bash
+  git clone https://github.com/compulab-yokneam/imx8mm-a10.git
+  export C=$(pwd)/imx8mm-a10
+  ```
 
 ## Apply the patches
 * U-boot

@@ -1,0 +1,77 @@
+From d1cb541104e177c0c1568bc396958f63efd87c80 Mon Sep 17 00:00:00 2001
+From: Kirill Kapranov <kirill.kapranov@compulab.co.il>
+Date: Sun, 21 Mar 2021 15:23:31 +0200
+Subject: [PATCH 1/1] libbt: Add ucm_imx8m_mini support
+
+Signed-off-by: Kirill Kapranov <kirill.kapranov@compulab.co.il>
+---
+ Android.mk                             |  3 +++
+ conf/fsl/ucm_imx8m_mini/Android.mk     | 11 +++++++++++
+ conf/fsl/ucm_imx8m_mini/bt_vendor.conf |  6 ++++++
+ include/vnd_ucm_imx8m_mini.txt         | 11 +++++++++++
+ 4 files changed, 31 insertions(+)
+ create mode 100644 conf/fsl/ucm_imx8m_mini/Android.mk
+ create mode 100644 conf/fsl/ucm_imx8m_mini/bt_vendor.conf
+ create mode 100644 include/vnd_ucm_imx8m_mini.txt
+
+diff --git a/Android.mk b/Android.mk
+index 7fd658b..6e0b5f2 100644
+--- a/Android.mk
++++ b/Android.mk
+@@ -95,4 +95,7 @@ endif
+ ifeq ($(TARGET_PRODUCT), evk_8mq)
+     include $(LOCAL_PATH)/conf/fsl/evk_8mq/Android.mk
+ endif
++ifeq ($(TARGET_PRODUCT), ucm_imx8m_mini)
++    include $(LOCAL_PATH)/conf/fsl/ucm_imx8m_mini/Android.mk
++endif
+ endif # BOARD_HAVE_BLUETOOTH_BCM
+diff --git a/conf/fsl/ucm_imx8m_mini/Android.mk b/conf/fsl/ucm_imx8m_mini/Android.mk
+new file mode 100644
+index 0000000..26f62f4
+--- /dev/null
++++ b/conf/fsl/ucm_imx8m_mini/Android.mk
+@@ -0,0 +1,11 @@
++LOCAL_PATH := $(call my-dir)
++
++include $(CLEAR_VARS)
++
++LOCAL_MODULE := bt_vendor.conf
++LOCAL_MODULE_CLASS := ETC
++LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/bluetooth
++LOCAL_SRC_FILES := $(LOCAL_MODULE)
++
++include $(BUILD_PREBUILT)
++
+diff --git a/conf/fsl/ucm_imx8m_mini/bt_vendor.conf b/conf/fsl/ucm_imx8m_mini/bt_vendor.conf
+new file mode 100644
+index 0000000..7e76a1d
+--- /dev/null
++++ b/conf/fsl/ucm_imx8m_mini/bt_vendor.conf
+@@ -0,0 +1,6 @@
++# UART device port where Bluetooth controller is attached
++UartPort = /dev/ttymxc3
++
++# Firmware patch file location
++FwPatchFilePath = /vendor/firmware/brcm/
++FwPatchFileName = 4339.hcd
+diff --git a/include/vnd_ucm_imx8m_mini.txt b/include/vnd_ucm_imx8m_mini.txt
+new file mode 100644
+index 0000000..7919ff5
+--- /dev/null
++++ b/include/vnd_ucm_imx8m_mini.txt
+@@ -0,0 +1,11 @@
++BLUETOOTH_UART_DEVICE_PORT = "/dev/ttymxc3"
++FW_PATCHFILE_LOCATION = "/vendor/firmware/brcm/4339.hcd"
++VENDOR_LIB_CONF_FILE = "/vendor/etc/bluetooth/bt_vendor.conf"
++LPM_IDLE_TIMEOUT_MULTIPLE = 5
++SCO_USE_I2S_INTERFACE = FALSE
++BTVND_DBG = FALSE
++BTHW_DBG = TRUE
++VNDUSERIAL_DBG = TRUE
++UPIO_DBG = FALSE
++LPM_SLEEP_MODE = 0
++UART_TARGET_BAUD_RATE = 3000000
+-- 
+2.17.1
+

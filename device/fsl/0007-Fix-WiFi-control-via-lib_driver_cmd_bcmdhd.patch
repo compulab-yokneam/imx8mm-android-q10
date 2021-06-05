@@ -1,0 +1,41 @@
+From 2890e8da707d7f6d480a99b992719e0cb7ff3009 Mon Sep 17 00:00:00 2001
+From: Kirill Kapranov <kirill.kapranov@compulab.co.il>
+Date: Sat, 5 Jun 2021 19:27:08 +0300
+Subject: [PATCH 7/7] Fix WiFi control via lib_driver_cmd_bcmdhd
+
+Signed-off-by: Kirill Kapranov <kirill.kapranov@compulab.co.il>
+---
+ imx8m/ucm_imx8m_mini/BoardConfig.mk | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/imx8m/ucm_imx8m_mini/BoardConfig.mk b/imx8m/ucm_imx8m_mini/BoardConfig.mk
+index c79138e1..eaf85008 100644
+--- a/imx8m/ucm_imx8m_mini/BoardConfig.mk
++++ b/imx8m/ucm_imx8m_mini/BoardConfig.mk
+@@ -70,13 +70,20 @@ TARGET_BOOTLOADER_BOARD_NAME := EVK
+ 
+ USE_OPENGL_RENDERER := true
+ 
+-# 8mm LPDDR4 board use NXP 8987 wifi
+-BOARD_WLAN_DEVICE            := brcm 
++# Wi-Fi Laird Sterling LWB5
++BOARD_WLAN_DEVICE            := bcmdhd
+ WPA_SUPPLICANT_VERSION       := VER_0_8_X
+ BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
+ BOARD_HOSTAPD_DRIVER         := NL80211
+ 
+-BOARD_USE_SENSOR_FUSION := true
++BOARD_HOSTAPD_PRIVATE_LIB               := lib_driver_cmd_bcmdhd
++BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_bcmdhd
++
++WIFI_DRIVER_FW_PATH_PARAM      := "/sys/module/brcmfmac/parameters/alternative_fw_path"
++
++BOARD_VENDOR_KERNEL_MODULES += \
++                            $(KERNEL_OUT)/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko \
++                            $(KERNEL_OUT)/drivers/net/wireless/broadcom/brcm80211/brcmutil/brcmutil.ko
+ 
+ # we don't support sparse image.
+ TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
+-- 
+2.17.1
+

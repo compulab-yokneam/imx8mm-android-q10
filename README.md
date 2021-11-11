@@ -77,7 +77,7 @@ For more details see [the NXP Android User Guide](https://www.nxp.com/docs/en/us
 
   ```bash
   git -C ${A}/hardware/broadcom/libbt checkout -b compulab-imx8-android android-10.0.0_2.5.0
-  git -C ${A}/device/fsl am ${C}/hardware/broadcom/libbt/*.patch
+  git -C ${A}/hardware/broadcom/libbt am ${C}/hardware/broadcom/libbt/*.patch
   ```
 
 Set a desired machine configuration:

@@ -1,0 +1,102 @@
+From 005d2023f5ebbfa121b446bc9f0c582aee65d6c3 Mon Sep 17 00:00:00 2001
+From: Kirill Kapranov <kirill.kapranov@compulab.co.il>
+Date: Sat, 4 Dec 2021 01:28:59 +0200
+Subject: [PATCH 098/101] spl: Add SDP support
+
+Signed-off-by: Kirill Kapranov <kirill.kapranov@compulab.co.il>
+---
+ board/compulab/plat/imx8mm/spl/spl.c | 16 ++++++++++++++++
+ configs/ucm-imx8m-mini_defconfig     |  7 +++----
+ include/configs/cpl-imx8m-mini.h     |  4 ++--
+ 3 files changed, 21 insertions(+), 6 deletions(-)
+
+diff --git a/board/compulab/plat/imx8mm/spl/spl.c b/board/compulab/plat/imx8mm/spl/spl.c
+index 321147dc09..2930cb649f 100644
+--- a/board/compulab/plat/imx8mm/spl/spl.c
++++ b/board/compulab/plat/imx8mm/spl/spl.c
+@@ -20,10 +20,23 @@
+ #include <asm/mach-imx/mxc_i2c.h>
+ #include <fsl_esdhc_imx.h>
+ #include <mmc.h>
++#include <usb.h>
+ #include "ddr/ddr.h"
+ 
+ DECLARE_GLOBAL_DATA_PTR;
+ 
++static int _board_phy_mode=USB_INIT_HOST;
++
++int board_usb_phy_mode(int port)
++{
++	return _board_phy_mode;
++}
++
++static void board_soft_otg(void)
++{
++	_board_phy_mode=USB_INIT_DEVICE;
++}
++
+ int spl_board_boot_device(enum boot_device boot_dev_spl)
+ {
+ 	switch (boot_dev_spl) {
+@@ -33,6 +46,9 @@ int spl_board_boot_device(enum boot_device boot_dev_spl)
+ 	case SD3_BOOT:
+ 	case MMC3_BOOT:
+ 		return BOOT_DEVICE_MMC2;
++	case USB_BOOT:
++		board_soft_otg();
++		return BOOT_DEVICE_BOARD;
+ 	default:
+ 		return BOOT_DEVICE_NONE;
+ 	}
+diff --git a/configs/ucm-imx8m-mini_defconfig b/configs/ucm-imx8m-mini_defconfig
+index 792cad796c..5a6ad40542 100644
+--- a/configs/ucm-imx8m-mini_defconfig
++++ b/configs/ucm-imx8m-mini_defconfig
+@@ -65,11 +65,10 @@ CONFIG_CMD_BOOTA=y
+ CONFIG_LIBAVB=y
+ CONFIG_AVB_SUPPORT=y
+ CONFIG_APPEND_BOOTARGS=y
+-CONFIG_FASTBOOT_BUF_ADDR=0x44800000
+-CONFIG_FASTBOOT_BUF_SIZE=0x19000000
++CONFIG_FASTBOOT_BUF_ADDR=0x42800000
++CONFIG_FASTBOOT_BUF_SIZE=0x40000000
+ CONFIG_FASTBOOT_FLASH=y
+ 
+-CONFIG_EFI_PARTITION=y
+ CONFIG_OF_CONTROL=y
+ CONFIG_DEFAULT_DEVICE_TREE="ucm-imx8m-mini"
+ CONFIG_ENV_IS_IN_MMC=y
+@@ -103,6 +102,7 @@ CONFIG_NXP_TMU=y
+ CONFIG_USB=y
+ CONFIG_DM_USB=y
+ CONFIG_DM_USB_GADGET=n
++CONFIG_SPL_USB_GADGET=y
+ CONFIG_SPL_USB_GADGET_SUPPORT=y
+ CONFIG_SPL_USB_HOST_SUPPORT=y
+ CONFIG_SPL_USB_SDP_SUPPORT=y
+@@ -114,7 +114,6 @@ CONFIG_USB_GADGET_VENDOR_NUM=0x0525
+ CONFIG_USB_GADGET_PRODUCT_NUM=0xa4a5
+ CONFIG_CI_UDC=y
+ CONFIG_SDP_LOADADDR=0x40400000
+-CONFIG_USB_GADGET_DOWNLOAD=y
+ CONFIG_USB_HOST_ETHER=y
+ CONFIG_USB_ETHER_ASIX88179=y
+ CONFIG_EXT4_WRITE=y
+diff --git a/include/configs/cpl-imx8m-mini.h b/include/configs/cpl-imx8m-mini.h
+index d5adf1a400..2a0e3bf72b 100644
+--- a/include/configs/cpl-imx8m-mini.h
++++ b/include/configs/cpl-imx8m-mini.h
+@@ -94,8 +94,8 @@
+ 		"\0" \
+ 	"initrd_addr=0x43800000\0" \
+ 	"initrd_high=0xffffffff\0" \
+-	"emmc_dev=1\0" \
+-	"sd_dev=0\0" \
++	"emmc_dev=2\0" \
++	"sd_dev=1\0" \
+ 	"bootcmd_mfg=run mfgtool_args;  if iminfo ${initrd_addr}; then "\
+ 					   "booti ${loadaddr} ${initrd_addr} ${fdt_addr};"\
+ 					"else echo \"Run fastboot ...\"; fastboot 0; fi\0" \
+-- 
+2.17.1
+

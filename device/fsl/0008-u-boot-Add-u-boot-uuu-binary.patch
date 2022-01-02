@@ -1,0 +1,29 @@
+From 10cb3f5a9a29fdc961d21ac83407ead27082377c Mon Sep 17 00:00:00 2001
+From: Kirill Kapranov <kirill.kapranov@compulab.co.il>
+Date: Sun, 2 Jan 2022 23:47:15 +0200
+Subject: [PATCH 8/8] u-boot: Add u-boot-uuu binary
+
+Add the file (identical copy of u-boot binary) for uuu script
+
+Signed-off-by: Kirill Kapranov <kirill.kapranov@compulab.co.il>
+---
+ imx8m/ucm_imx8m_mini/AndroidUboot.mk | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/imx8m/ucm_imx8m_mini/AndroidUboot.mk b/imx8m/ucm_imx8m_mini/AndroidUboot.mk
+index 04d054cb..feccbba8 100644
+--- a/imx8m/ucm_imx8m_mini/AndroidUboot.mk
++++ b/imx8m/ucm_imx8m_mini/AndroidUboot.mk
+@@ -32,7 +32,8 @@ define build_imx_uboot
+ 	cp $(IMX_PATH)/arm-trusted-firmware/build/imx8mm/release/bl31.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/bl31.bin; \
+ 	$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ clean; \
+ 	$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MM flash_spl_uboot; \
+-	cp $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/flash.bin $(UBOOT_COLLECTION)/u-boot-$(strip $(2)).imx;
++	cp $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/flash.bin $(UBOOT_COLLECTION)/u-boot-$(strip $(2)).imx; \
++	cp $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/flash.bin $(UBOOT_COLLECTION)/u-boot-imx8mm-evk-uuu.imx;
+ endef
+ 
+ 	# $(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MM TEE_LOAD_ADDR=0xfe000000 flash_spl_uboot \
+-- 
+2.17.1
+

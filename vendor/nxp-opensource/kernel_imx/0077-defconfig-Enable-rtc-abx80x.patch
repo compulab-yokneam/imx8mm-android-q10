@@ -1,0 +1,36 @@
+From e350603457ae7561adb83dc1e2af1262efe57947 Mon Sep 17 00:00:00 2001
+From: Kirill Kapranov <kirill.kapranov@compulab.co.il>
+Date: Sun, 16 Jan 2022 22:06:51 +0200
+Subject: [PATCH 77/77] defconfig: Enable rtc abx80x
+
+Signed-off-by: Kirill Kapranov <kirill.kapranov@compulab.co.il>
+---
+ arch/arm64/configs/ucm-imx8m-mini_defconfig | 10 +---------
+ 1 file changed, 1 insertion(+), 9 deletions(-)
+
+diff --git a/arch/arm64/configs/ucm-imx8m-mini_defconfig b/arch/arm64/configs/ucm-imx8m-mini_defconfig
+index 96a786817012..ceb84eecd8a6 100644
+--- a/arch/arm64/configs/ucm-imx8m-mini_defconfig
++++ b/arch/arm64/configs/ucm-imx8m-mini_defconfig
+@@ -870,17 +870,9 @@ CONFIG_EDAC=y
+ CONFIG_EDAC_GHES=y
+ CONFIG_EDAC_SYNOPSYS=y
+ CONFIG_RTC_CLASS=y
++CONFIG_RTC_DRV_ABX80X=y
+ CONFIG_RTC_DRV_DS1307=y
+ CONFIG_RTC_DRV_MAX77686=y
+-CONFIG_RTC_DRV_RK808=m
+-CONFIG_RTC_DRV_PCF85363=y
+-CONFIG_RTC_DRV_RX8581=m
+-CONFIG_RTC_DRV_S5M=y
+-CONFIG_RTC_DRV_DS3232=y
+-CONFIG_RTC_DRV_PCF2127=y
+-CONFIG_RTC_DRV_EFI=y
+-CONFIG_RTC_DRV_CROS_EC=y
+-CONFIG_RTC_DRV_PL031=y
+ CONFIG_RTC_DRV_SNVS=y
+ CONFIG_RTC_DRV_IMX_SC=y
+ CONFIG_DMADEVICES=y
+-- 
+2.17.1
+

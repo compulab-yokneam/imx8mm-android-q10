@@ -1,0 +1,44 @@
+From a6217a1b3cee714ed503da521673431b02ddbf69 Mon Sep 17 00:00:00 2001
+From: Kirill Kapranov <kirill.kapranov@compulab.co.il>
+Date: Sun, 23 Jan 2022 19:34:19 +0200
+Subject: [PATCH 78/78] dts: Fix PCIe
+
+Signed-off-by: Kirill Kapranov <kirill.kapranov@compulab.co.il>
+---
+ arch/arm64/boot/dts/compulab/sb-ucm-imx8-rev2.dtsi | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/compulab/sb-ucm-imx8-rev2.dtsi b/arch/arm64/boot/dts/compulab/sb-ucm-imx8-rev2.dtsi
+index 65c95bd47164..c464e4baacb9 100644
+--- a/arch/arm64/boot/dts/compulab/sb-ucm-imx8-rev2.dtsi
++++ b/arch/arm64/boot/dts/compulab/sb-ucm-imx8-rev2.dtsi
+@@ -52,15 +52,14 @@
+ 			clock-output-names = "clk40m";
+ 		};
+ 	};
+-#if 0
++
+ 	pcie0_refclk: pcie0-refclk {
+ 		compatible = "fixed-clock";
+ 		#clock-cells = <0>;
+ 		clock-frequency = <100000000>;
+ 	};
+-#endif
+ };
+-#if 0
++
+ &pcie0 {
+ 	compatible = "fsl,imx8mm-pcie";
+ 	reset-gpio = <&pca9555 0 GPIO_ACTIVE_LOW>;
+@@ -73,7 +72,7 @@
+ 	reserved-region = <&rpmsg_reserved>;
+ 	status = "okay";
+ };
+-#endif
++
+ &i2c1 {
+ 	clock-frequency = <100000>;
+ 	pinctrl-names = "default";
+-- 
+2.17.1
+

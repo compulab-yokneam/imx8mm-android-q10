@@ -1,7 +1,5 @@
 # Android Q10 for imx8mm
 
-<b>Status: <i>beta</i></b>
-
 ## Prerequisites
 
 ### repo

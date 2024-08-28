@@ -13,11 +13,11 @@ chmod a+x ~/bin/repo
 export PATH=${PATH}:~/bin</pre>
 
 ### GCC
-Download the tool chain for the A-profile architecture on [arm Developer GNU-A Downloads page](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-a/downloads)
+Download the tool chain for the A-profile architecture from [arm Developer GNU-A Downloads page](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-a/downloads) and deploy it in a directory on your discretion (hereafter /opt)
 
 Recommended tool chain is <b>gcc-arm-8.3-2019.03-x86_64-arm-eabi</b>
-<pre>export AARCH64_GCC_CROSS_COMPILE=/Where_the_tool_chain_is_installed/gcc-arm-8.3-2019.03-x86_64-aarch64-elf/bin/aarch64-elf-
-export AARCH32_GCC_CROSS_COMPILE=/Where_the_tool_chain_is_installed/gcc-arm-8.3-2019.03-x86_64-arm-eabi/bin/arm-eabi-</pre>
+<pre>export AARCH64_GCC_CROSS_COMPILE=/opt/gcc-arm-8.3-2019.03-x86_64-aarch64-elf/bin/aarch64-elf-
+export AARCH32_GCC_CROSS_COMPILE=/opt/gcc-arm-8.3-2019.03-x86_64-arm-eabi/bin/arm-eabi-</pre>
 
 ## Getting Android source code
 

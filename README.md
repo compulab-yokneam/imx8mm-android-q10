@@ -7,10 +7,10 @@
 Make sure that the necessary packages have been installed.
 <pre>sudo apt-get install xz-utils make flex lib32z1 zip curl</pre>
 Install <b>repo</b> tool:
-<pre>mkdir ~/bin
-curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
-chmod a+x ~/bin/repo
-export PATH=${PATH}:~/bin</pre>
+<pre>mkdir ~/Android/{bin,}
+curl https://storage.googleapis.com/git-repo-downloads/repo > ~/Android/bin/repo
+chmod a+x ~/Android/bin/repo
+export PATH=~/Android/bin:${PATH}</pre>
 
 ### GCC
 Download the tool chain for the A-profile architecture from [arm Developer GNU-A Downloads page](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-a/downloads) and deploy it in a directory on your discretion (hereafter /opt)
@@ -26,10 +26,10 @@ export AARCH32_GCC_CROSS_COMPILE=/opt/gcc-arm-8.3-2019.03-x86_64-arm-eabi/bin/ar
 * Download the NXP Android sources from this location: [imx-android-10.0.0_2.5.0.tar.gz](https://www.nxp.com/webapp/sps/download/license.jsp?colCode=Q10.0.0_2.5.0_ANDROID_SOURCE&appType=file1&DOWNLOAD_ID=null)
 
 * Untar the image:
-  <pre>tar -C ~/ -xf imx-android-10.0.0_2.5.0.tar.gz</pre>
+  <pre>tar -C ~/Android -xf imx-android-10.0.0_2.5.0.tar.gz</pre>
 
 * Download and setup source:
-  <pre>source ~/imx-android-10.0.0_2.5.0/imx_android_setup.sh
+  <pre>source ~/Android/imx-android-10.0.0_2.5.0/imx_android_setup.sh
   export A=$(pwd)</pre>
 * Follow the instructions in the <b><i>~/imx-android-10.0.0_2.5.0.tar.gz/README</i></b> and make sure that the build environment is ready.
 
@@ -40,8 +40,8 @@ For more details see [the NXP Android User Guide](https://www.nxp.com/docs/en/us
 * Clone the repository
 
   ```bash
-  git clone https://github.com/compulab-yokneam/imx8mm-a10.git
-  export C=$(pwd)/imx8mm-a10
+  git clone https://github.com/compulab-yokneam/imx8mm-android-q10.git
+  export C=$(pwd)/imx8mm-android-q10
   ```
 
 ## Apply the patches

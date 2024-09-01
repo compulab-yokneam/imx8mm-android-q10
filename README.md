@@ -31,7 +31,7 @@ export AARCH32_GCC_CROSS_COMPILE=/opt/gcc-arm-8.3-2019.03-x86_64-arm-eabi/bin/ar
 * Download and setup source:
   <pre>source ~/Android/imx-android-10.0.0_2.5.0/imx_android_setup.sh
   export A=$(pwd)</pre>
-* Follow the instructions in the <b><i>~/imx-android-10.0.0_2.5.0.tar.gz/README</i></b> and make sure that the build environment is ready.
+* Follow the instructions in the <b><i>~/imx-android-10.0.0_2.5.0/README</i></b> and make sure that the build environment is ready.
 
 For more details see [the NXP Android User Guide](https://www.nxp.com/docs/en/user-guide/ANDROID_USERS_GUIDE.pdf)
 
